@@ -1,5 +1,6 @@
 import animeList from "@/anime_data/anime_data";
 import AnimeCard from "@/app-ui/AnimeCard";
+import AnimeCardVertical from "@/app-ui/AnimeCardVertical";
 import Heading from "@/app-ui/Heading";
 import Image from "next/image";
 import { FaAngleRight } from "react-icons/fa";
@@ -33,9 +34,9 @@ export default async function Home(props) {
       </section>
       <section className="py-12">
         <div className="x-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="md:col-span-6 lg:col-span-8">
-              <Heading variant={4} className="uppercase">
+              <Heading variant={6} className="uppercase">
                 Trending now
               </Heading>
 
@@ -47,7 +48,16 @@ export default async function Home(props) {
                   ))}
               </div>
             </div>
-            <div className="md:col-span-6 lg:col-span-4"></div>
+            <div className="md:col-span-6 lg:col-span-4">
+              <Heading variant={4} className="uppercase">
+                Top Airing
+              </Heading>
+              <div className="mt-10 flex flex-col gap-2 md:gap-6">
+                {animeList?.slice(3).map((anime) => (
+                  <AnimeCardVertical key={anime._id} data={anime} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
