@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap");
+
 @import "tailwindcss";
 
 /* :root {
@@ -20,7 +21,13 @@
   --border-tertiary: #1d1d1d;
 } */
 
+:root {
+  --font-oswald: "Oswald", sans-serif;
+}
+
 @theme inline {
+  --font-oswald: var(--font-oswald);
+
   --color-bg-primary: var(--bg-primary);
   --color-bg-secondary: var(--bg-secondary);
   --color-bg-tertiary: var(--bg-tertiary);
@@ -52,8 +59,17 @@
 body {
   background: var(--bg-primary);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Mulish", sans-serif;
 }
+
+/* h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Oswald", sans-serif;
+} */
 
 video {
   background-color: black;
@@ -99,15 +115,19 @@ button {
 /* buttons */
 
 .btn {
-  @apply cursor-pointer block font-semibold uppercase;
+  @apply cursor-pointer disabled:cursor-not-allowed disabled:opacity-80;
 }
 
 .btn.btn-primary {
-  @apply bg-theme-primary text-foreground-quaternary hover:opacity-75 active:opacity-100;
+  @apply bg-button-primary-bg text-button-primary-text;
 }
 
 .btn.btn-secondary {
-  @apply bg-bg-secondary text-foreground-quaternary hover:opacity-75 active:opacity-100;
+  @apply bg-button-secondary-bg text-button-secondary-text hover:bg-button-secondary-bg/50;
+}
+
+.btn.btn-secondary-outlined {
+  @apply border border-button-secondary-bg text-button-secondary-text hover:bg-button-secondary-bg/50;
 }
 
 .btn.btn-xs {

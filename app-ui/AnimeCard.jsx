@@ -9,7 +9,7 @@ const AnimeCard = (props) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/anime?id=${data?._id}`);
+    router.push(`/stream?id=${data?._id}`);
   };
 
   return (

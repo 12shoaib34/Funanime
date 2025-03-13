@@ -49,7 +49,7 @@ const StreamingContainer = (props) => {
 
   const handleEpisodeClick = (episode) => {
     const cat = anime?.cat?.includes("dub") ? "dub" : "sub";
-    const url = `/anime?id=${anime._id}&ep=${episode}&cat=${cat}`;
+    const url = `/stream?id=${anime._id}&ep=${episode}&cat=${cat}`;
 
     let currentAnime = progress?.find((a) => anime._id === a._id) || {};
     if (currentAnime?._id) {
@@ -69,11 +69,11 @@ const StreamingContainer = (props) => {
   };
 
   const onPrev = () => {
-    window.location.href = `/anime?id=${anime._id}&ep=${episode - 1}&cat=${cat || ""}`;
+    window.location.href = `/stream?id=${anime._id}&ep=${episode - 1}&cat=${cat || ""}`;
   };
 
   const onCatChange = (cat) => {
-    window.location.href = `/anime?id=${anime._id}&ep=${episode}&cat=${cat || ""}`;
+    window.location.href = `/stream?id=${anime._id}&ep=${episode}&cat=${cat || ""}`;
   };
 
   if (!episode) {
@@ -116,25 +116,30 @@ const StreamingContainer = (props) => {
           <XPlayerV2 url={sourceUrl} captions={captions} trackThumbnails={trackThumbnails} onComplete={onNext} />
         </div>
       </div>
-      {!loading && (
-        <div className="flex items-center justify-between mt-4">
-          <div className="flex items-center gap-2">
-            <button onClick={onPrev} className="btn btn-secondary btn-xs">
-              Prev
-            </button>
-            <button onClick={onNext} className="btn btn-secondary btn-xs">
-              Next
-            </button>
-          </div>
-          <div className="flex items-center gap-2">
-            {anime?.cat?.map((item) => (
-              <button onClick={() => onCatChange(item)} className="btn btn-secondary btn-xs" key={item}>
-                {item}
-              </button>
-            ))}
-          </div>
+
+      <div className="flex items-center justify-between mt-4">
+        <div className="flex items-center gap-2">
+          <button disabled={loading} onClick={onPrev} className="btn btn-secondary rounded-md btn-xs">
+            Prev
+          </button>
+          <button disabled={loading} onClick={onNext} className="btn btn-secondary rounded-md btn-xs">
+            Next
+          </button>
         </div>
-      )}
+
+        <div className="flex items-center gap-2">
+          {anime?.cat?.map((item) => (
+            <button
+              disabled={loading}
+              onClick={() => onCatChange(item)}
+              className="btn btn-secondary rounded-md btn-xs"
+              key={item}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

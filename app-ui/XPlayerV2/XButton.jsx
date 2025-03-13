@@ -6,7 +6,7 @@ const XButton = (props) => {
     <button
       {...rest}
       onClick={onClick}
-      className={`cursor-pointer text-white h-10 w-10 flex justify-center items-center rounded-full hover:bg-theme-primary/30 outlined-3-primary ${
+      className={`cursor-pointer text-white h-10 w-10 flex justify-center items-center rounded-full hover:bg-theme-primary/30 focus:outline-none focus:scale-110 active:scale-95 duration-100 ${
         active ? "bg-primary/50" : ""
       } ${className}`}
     >

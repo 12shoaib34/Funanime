@@ -124,7 +124,7 @@ const XPlayerV2 = ({ url, captions = [], trackThumbnails = [], onComplete }) => 
       </div>
 
       <div
-        className={`absolute bottom-6 left-24 right-24 bg-white/[10%] shadow-lg backdrop-blur-lg z-10 py-2 px-4 rounded-2xl duration-200 ${
+        className={`absolute bottom-6 left-24 right-24 bg-black/20 shadow-lg backdrop-blur-lg z-10 py-2 px-4 rounded-2xl duration-200 ${
           !isInactive ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
         }`}
       >

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Select from "./Select";
+import Heading from "./Heading";
 
 const AnimeEpList = ({ data, selectedEpisode }) => {
   const total = data?.totalEpisodes || 0;
@@ -17,11 +18,11 @@ const AnimeEpList = ({ data, selectedEpisode }) => {
   }, []);
 
   const episodeGroups = episodes.reduce((acc, episode) => {
-    const groupIndex = Math.floor((episode - 1) / 100);
+    const groupIndex = Math.floor((episode - 1) / 50);
     if (!acc[groupIndex]) {
       acc[groupIndex] = {
         index: groupIndex,
-        label: `${groupIndex * 100 + 1} - ${Math.min((groupIndex + 1) * 100, total)}`,
+        label: `${groupIndex * 50 + 1} - ${Math.min((groupIndex + 1) * 50, total)}`,
         episodes: [],
       };
     }
@@ -42,7 +43,7 @@ const AnimeEpList = ({ data, selectedEpisode }) => {
 
   const handleEpisodeClick = (episode) => {
     const cat = data?.cat?.includes("dub") ? "dub" : "sub";
-    const url = `/anime?id=${data._id}&ep=${episode}&cat=${cat}`;
+    const url = `/stream?id=${data._id}&ep=${episode}&cat=${cat}`;
 
     let currentAnime = progress?.find((anime) => anime._id === data._id) || {};
     if (currentAnime?._id) {
@@ -64,8 +65,8 @@ const AnimeEpList = ({ data, selectedEpisode }) => {
   };
 
   return (
-    <div className="flex-1 md:max-w-[300px] bg-bg-primary rounded-lg max-h-[200px] md:max-h-[calc(100svh-180px)] overflow-hidden flex flex-col">
-      <div className="mb-4">
+    <div className="mt-6">
+      {/* <div className="mb-4">
         <Select
           placeholder="Select a group"
           onSelect={onSelect}
@@ -73,32 +74,58 @@ const AnimeEpList = ({ data, selectedEpisode }) => {
           valuePropName="index"
           selectedValue={selectedIndex}
         />
-      </div>
+      </div> */}
 
-      <div className="mb-4">
-        {progressUrl && !progressUrl?.includes(`${selectedEpisode}`) && (
-          <button onClick={() => (window.location.href = progressUrl)} className="btn btn-primary btn-xs w-full">
-            Continue
-          </button>
-        )}
-      </div>
+      <div className="flex flex-col gap-8">
+        <div className="flex items-center justify-between">
+          <Heading variant={3}>List of groups</Heading>
+          <div className="">
+            {progressUrl && !progressUrl?.includes(`${selectedEpisode}`) && (
+              <button onClick={() => (window.location.href = progressUrl)} className="btn btn-primary btn-xs w-full">
+                Continue
+              </button>
+            )}
+          </div>
+        </div>
 
-      <div className="flex-1 overflow-y-auto hide-scrollbar">
-        <div className="grid grid-cols-8 md:grid-cols-5 gap-2">
-          {episodeGroups[selectedIndex]?.episodes.map((ep) => (
-            <div key={ep} className="w">
+        {episodeGroups.length > 1 && (
+          <div className="flex items-center overflow-auto hide-scrollbar">
+            {episodeGroups.map((group, index) => (
               <button
-                onClick={() => handleEpisodeClick(ep)}
-                className={`w-full h-10 text-xs md:text-base rounded-md  ${
-                  selectedEpisode === ep
-                    ? "bg-theme-primary text-foreground-quaternary"
-                    : "bg-bg-secondary text-foreground-quaternary"
-                } ${data?.filers?.includes(ep) ? "line-through opacity-20" : ""}`}
+                key={group.index}
+                className={`btn py-2 text-nowrap  mr-4 mb-4 px-6 rounded-lg font-light inline-block ${
+                  selectedIndex === index ? "btn-primary" : "btn-secondary"
+                }`}
+                onClick={() => onSelect({ index })}
               >
+                {group.label}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className="flex items-center justify-between">
+          <Heading variant={3}>List of episodes</Heading>
+          <div className="flex items-center">
+            <span className="text-sm mr-2 text-foreground-secondary">Ep: {selectedEpisode}</span>
+          </div>
+        </div>
+
+        <div>
+          <div className="inline-block">
+            {episodeGroups[selectedIndex]?.episodes.map((ep) => (
+              <button
+                key={ep}
+                className={`btn py-2 mr-4 mb-4 px-6 rounded-lg font-light inline-block ${
+                  selectedEpisode === ep ? "btn-primary" : "btn-secondary"
+                } ${data?.filers?.includes(ep) ? "opacity-50 line-through" : ""}`}
+                onClick={() => handleEpisodeClick(ep)}
+              >
+                Ep {ep <= 9 ? 0 : ""}
                 {ep}
               </button>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

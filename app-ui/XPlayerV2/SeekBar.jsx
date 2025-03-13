@@ -1,6 +1,7 @@
 "use client";
 
 import { fetchVttFile } from "@/helper";
+import moment from "moment";
 import { useEffect, useRef, useState } from "react";
 
 const SeekBar = ({ progress, playerRef, trackThumbnails = [] }) => {
@@ -109,6 +110,11 @@ const SeekBar = ({ progress, playerRef, trackThumbnails = [] }) => {
     setHoverPosition({ x: e.clientX - rect.left, y: rect.top });
   };
 
+  const onMouseLeave = () => {
+    setThumbnail(null);
+    setHoverPositionTime(0);
+  };
+
   return (
     <div
       role="slider"
@@ -119,12 +125,12 @@ const SeekBar = ({ progress, playerRef, trackThumbnails = [] }) => {
       aria-orientation="horizontal"
       aria-label="Seek Bar"
       aria-live="polite"
+      aria-busy={handleDragging}
       onKeyDown={handleKeyDown}
       onMouseMove={handleMouseMove}
+      onMouseLeave={onMouseLeave}
       onTouchMove={handleMouseMove}
-      onTouchEnd={() => setThumbnail(null)}
-      onMouseLeave={() => setThumbnail(null)}
-      aria-busy={handleDragging}
+      onTouchEnd={onMouseLeave}
       onMouseDown={onSeekStart}
       onTouchStart={onSeekStart}
       ref={seekBarRef}
@@ -146,18 +152,32 @@ const SeekBar = ({ progress, playerRef, trackThumbnails = [] }) => {
 
       {thumbnail && (
         <div
-          className="absolute -translate-x-1/2 rounded-md overflow-hidden scale-110 bg-white/20 backdrop-blur-md origin-bottom w-36 h-36 bg-no-repeat"
+          className="absolute -translate-x-1/2 w-36 h-36"
           style={{
             left: `${hoverPosition.x}px`,
             bottom: `8px`,
-            backgroundImage: `url(${trackThumbnails?.[0]?.file?.replace("/thumbnails.vtt", "/")}/${
-              thumbnail.imageUrl
-            })`,
-            backgroundPosition: `-${thumbnail.x}px -${thumbnail.y}px`,
             width: `${thumbnail.width}px`,
             height: `${thumbnail.height}px`,
           }}
-        />
+        >
+          <div
+            className="rounded-md overflow-hidden bg-white/20 backdrop-blur-md w-36 h-36 bg-no-repeat"
+            style={{
+              backgroundImage: `url(${trackThumbnails?.[0]?.file?.replace("/thumbnails.vtt", "/")}/${
+                thumbnail.imageUrl
+              })`,
+              backgroundPosition: `-${thumbnail.x}px -${thumbnail.y}px`,
+              width: `${thumbnail.width}px`,
+              height: `${thumbnail.height}px`,
+            }}
+          />
+
+          {hoverPositionTime && (
+            <div className="px-2 py-1 rounded-md bg-black backdrop-blur-sm text-xs absolute -top-2 left-1/2 -translate-y-full -translate-x-1/2">
+              {moment(hoverPositionTime * 1000).format("mm:ss")}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

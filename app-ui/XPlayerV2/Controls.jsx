@@ -155,7 +155,7 @@ const Controls = (props) => {
       <div className="flex items-center">
         <div className="relative">
           <XButton className="group" onClick={toggleSettingOpen}>
-            <IoSettingsOutline className="group-focus:rotate-90 duration-300" size={22} />
+            <IoSettingsOutline size={22} />
           </XButton>
           <div
             className={`min-w-[300px] min-h-[250px] absolute -translate-y-full -translate-x-full top-0 left-10 p-2 bg-bg-secondary rounded-2xl ${
@@ -223,17 +223,13 @@ const Controls = (props) => {
           </div>
         </div>
         <XButton className="group" onClick={onRewind}>
-          {<TbRewindBackward10 size={26} className="group-focus:-rotate-45 duration-300" />}
+          {<TbRewindBackward10 size={26} />}
         </XButton>
         <XButton className="group" onClick={onForward}>
-          {<TbRewindForward10 size={26} className="group-focus:rotate-45 duration-300" />}
+          {<TbRewindForward10 size={26} />}
         </XButton>
         <XButton className="group" onClick={toggleFullscreen}>
-          {settings?.fullscreen ? (
-            <BsFullscreenExit className="group-focus:scale-150 duration-300" size={26} />
-          ) : (
-            <BsFullscreen size={18} className="group-focus:scale-150 duration-300" />
-          )}
+          {settings?.fullscreen ? <BsFullscreenExit size={26} /> : <BsFullscreen size={18} />}
         </XButton>
       </div>
     </div>

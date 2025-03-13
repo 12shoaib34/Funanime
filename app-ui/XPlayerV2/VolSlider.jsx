@@ -22,7 +22,10 @@ const VolSlider = (props) => {
       }}
       className="relative overflow-hidden bg-black/20 w-16 h-4 cursor-pointer rounded-br-md select-none flex items-center justify-center mr-2"
     >
-      <div className="absolute top-0 left-0 w-full h-full bg-theme-primary" style={{ width: `${volume * 100}%` }} />
+      <div
+        className="absolute top-0 left-0 w-full h-full bg-theme-primary duration-200"
+        style={{ width: `${volume * 100}%` }}
+      />
       <input
         className="opacity-0 w-full h-full absolute inset-0"
         step="0.01"

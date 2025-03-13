@@ -103,7 +103,7 @@ const XPlayer = ({ videoUrl, tracks = [], nextEpisode, animeId }) => {
   // go to next episode
   const onComplete = () => {
     if (nextEpisode) {
-      router.push(`/anime?animeId=${animeId}&ep=${nextEpisode}`);
+      router.push(`/stream?animeId=${animeId}&ep=${nextEpisode}`);
     }
   };
 

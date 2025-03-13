@@ -4,7 +4,7 @@ const Heading = (props) => {
   const { children, variant = 1, className = "" } = props;
 
   const prefix =
-    "font-bold before relative pl-5 leading-none before:-translate-y-1/2  before:top-1/2 before:left-0 before:absolute before:h-8 before:w-1 before:bg-theme-primary mb-2";
+    "font-medium before relative pl-5 leading-none before:-translate-y-1/2  before:top-1/2 before:left-0 before:absolute before:h-8 before:w-1 before:bg-theme-primary mb-2";
 
   switch (variant) {
     case 1:
