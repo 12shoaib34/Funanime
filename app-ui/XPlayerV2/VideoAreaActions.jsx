@@ -68,12 +68,6 @@ const VideoAreaActions = (props) => {
       role="button"
       className="grid grid-cols-8 absolute z-10 top-0 left-0 right-0 bottom-0"
     >
-      {isBuffering && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-theme-primary">
-          <AiOutlineLoading size={90} className="animate-spin" />
-        </div>
-      )}
-
       <button
         onClick={(event) => bindFn(event, togglePlayPause)}
         onDoubleClick={(event) => bindFn(event, onRewind)}
@@ -84,12 +78,17 @@ const VideoAreaActions = (props) => {
         onClick={(event) => bindFn(event, togglePlayPause)}
         className="col-span-4 h-full flex-center outline-none"
       >
-        <PiPlayBold
-          size={90}
-          className={`duration-100 bg-theme-primary/20 p-4 backdrop-blur-xs rounded-full text-white ${
-            settings.isPlaying ? "scale-75 opacity-0" : "scale-100 opacity-100"
-          }`}
-        />
+        {isBuffering && (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-theme-primary">
+            <AiOutlineLoading size={90} className="animate-spin" />
+            <PiPlayBold
+              size={90}
+              className={`duration-100 bg-theme-primary/20 p-4 -translate-y-full backdrop-blur-xs rounded-full text-white ${
+                settings.isPlaying ? "scale-75 opacity-0" : "scale-100 opacity-100"
+              }`}
+            />
+          </div>
+        )}
       </button>
       <button
         onClick={(event) => bindFn(event, togglePlayPause)}

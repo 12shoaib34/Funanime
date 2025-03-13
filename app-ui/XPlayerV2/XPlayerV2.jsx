@@ -23,7 +23,7 @@ const XPlayerV2 = ({ url, captions = [], trackThumbnails = [], onComplete }) => 
     isMuted: false,
     isPlaying: true,
     fullscreen: false,
-    volume: 100,
+    volume: 1,
     playbackRate: 1,
     selectedQuality: -1,
     caption: captions?.[0] || {},
@@ -124,10 +124,10 @@ const XPlayerV2 = ({ url, captions = [], trackThumbnails = [], onComplete }) => 
       </div>
 
       <div
-        className={`absolute bottom-0 left-0 right-0 px-4 pb-4 cursor-pointer z-20 bg-gradient-to-t from-black to-white/0 
-        transition-opacity duration-300 ${isInactive ? "opacity-0" : "opacity-100"}`}
+        className={`absolute bottom-6 left-24 right-24 bg-white/[10%] shadow-lg backdrop-blur-lg z-10 py-2 px-4 rounded-2xl duration-200 ${
+          !isInactive ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+        }`}
       >
-        <SeekBar trackThumbnails={trackThumbnails} playerRef={playerRef} progress={progress} />
         <Controls
           duration={duration}
           setSettings={setSettings}
@@ -137,6 +137,7 @@ const XPlayerV2 = ({ url, captions = [], trackThumbnails = [], onComplete }) => 
           captions={captions}
           qualityLevels={qualityLevels}
         />
+        <SeekBar trackThumbnails={trackThumbnails} playerRef={playerRef} progress={progress} />
       </div>
     </div>
   );

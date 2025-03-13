@@ -11,6 +11,7 @@ const SeekBar = ({ progress, playerRef, trackThumbnails = [] }) => {
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnails, setThumbnails] = useState([]);
   const [hoverPosition, setHoverPosition] = useState({ x: 0, y: 0 });
+  const [hoverPositionTime, setHoverPositionTime] = useState(0);
 
   useEffect(() => {
     if (trackThumbnails?.length > 0) {
@@ -100,6 +101,8 @@ const SeekBar = ({ progress, playerRef, trackThumbnails = [] }) => {
     const percentage = (e.clientX - rect.left) / rect.width;
     const videoTime = percentage * (playerRef.current?.getDuration() || 0);
 
+    setHoverPositionTime(videoTime);
+
     const matchedThumb = thumbnails.find((thumb) => videoTime >= thumb.start && videoTime <= thumb.end);
 
     setThumbnail(matchedThumb || null);
@@ -125,7 +128,7 @@ const SeekBar = ({ progress, playerRef, trackThumbnails = [] }) => {
       onMouseDown={onSeekStart}
       onTouchStart={onSeekStart}
       ref={seekBarRef}
-      className="flex items-center relative h-2 bg-white/50 cursor-pointer mb-2 outlined-3-primary hover:h-3 hover:transform hover:translate-y-1 duration-100"
+      className="flex items-center relative h-2 bg-white/50 cursor-pointer my-2 outlined-3-primary duration-100"
     >
       <div
         role="presentation"
@@ -143,10 +146,10 @@ const SeekBar = ({ progress, playerRef, trackThumbnails = [] }) => {
 
       {thumbnail && (
         <div
-          className="absolute -translate-x-1/2 rounded-md overflow-hidden scale-110 duration-75 origin-bottom w-36 h-36 bg-no-repeat"
+          className="absolute -translate-x-1/2 rounded-md overflow-hidden scale-110 bg-white/20 backdrop-blur-md origin-bottom w-36 h-36 bg-no-repeat"
           style={{
             left: `${hoverPosition.x}px`,
-            bottom: `12px`,
+            bottom: `8px`,
             backgroundImage: `url(${trackThumbnails?.[0]?.file?.replace("/thumbnails.vtt", "/")}/${
               thumbnail.imageUrl
             })`,

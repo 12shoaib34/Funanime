@@ -43,7 +43,7 @@ const CustomSubtitles = ({ subtitleUrl, playerRef }) => {
 
   return currentSubtitle ? (
     <div
-      className="absolute w-max max-w-xl text-center bottom-16 md:bottom-22 left-1/2 -translate-x-1/2 bg-black/70 p-1 md:px-4 md:py-2 text-white text-xs md:text-xl"
+      className="absolute w-max max-w-xl text-center bottom-16 md:bottom-28 left-1/2 -translate-x-1/2 bg-black/70 p-1 md:px-4 md:py-2 text-white text-xs md:text-xl"
       dangerouslySetInnerHTML={{ __html: currentSubtitle }}
     ></div>
   ) : null;
