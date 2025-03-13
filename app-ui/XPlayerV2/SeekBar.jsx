@@ -12,7 +12,7 @@ const SeekBar = ({ progress, playerRef, trackThumbnails = [] }) => {
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnails, setThumbnails] = useState([]);
   const [hoverPosition, setHoverPosition] = useState({ x: 0, y: 0 });
-  const [hoverPositionTime, setHoverPositionTime] = useState(0);
+  const [hoverPositionTime, setHoverPositionTime] = useState(null);
 
   useEffect(() => {
     if (trackThumbnails?.length > 0) {
@@ -102,7 +102,7 @@ const SeekBar = ({ progress, playerRef, trackThumbnails = [] }) => {
     const percentage = (e.clientX - rect.left) / rect.width;
     const videoTime = percentage * (playerRef.current?.getDuration() || 0);
 
-    setHoverPositionTime(videoTime);
+    if (videoTime > 0) setHoverPositionTime(videoTime);
 
     const matchedThumb = thumbnails.find((thumb) => videoTime >= thumb.start && videoTime <= thumb.end);
 
@@ -112,7 +112,7 @@ const SeekBar = ({ progress, playerRef, trackThumbnails = [] }) => {
 
   const onMouseLeave = () => {
     setThumbnail(null);
-    setHoverPositionTime(0);
+    setHoverPositionTime(null);
   };
 
   return (
