@@ -98,7 +98,7 @@ const XPlayerV2 = ({ url, captions = [], trackThumbnails = [], onComplete }) => 
         />
         <ReactPlayer
           ref={playerRef}
-          url={"https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"}
+          url={url}
           playing={settings.isPlaying}
           muted={settings.isMuted}
           volume={settings.volume}

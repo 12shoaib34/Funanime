@@ -113,7 +113,12 @@ const StreamingContainer = (props) => {
     <div className="flex-1">
       <div className="pb-[50%] relative">
         <div className="absolute top-0 left-0 right-0 bottom-0 rounded-xl overflow-hidden">
-          <XPlayerV2 url={sourceUrl} captions={captions} trackThumbnails={trackThumbnails} onComplete={onNext} />
+          <XPlayerV2
+            url={"https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"}
+            captions={captions}
+            trackThumbnails={trackThumbnails}
+            onComplete={onNext}
+          />
         </div>
       </div>
 
