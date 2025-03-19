@@ -98,7 +98,7 @@ const XPlayerV2 = ({ url, captions = [], trackThumbnails = [], onComplete }) => 
         />
         <ReactPlayer
           ref={playerRef}
-          url={url}
+          url={"https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"}
           playing={settings.isPlaying}
           muted={settings.isMuted}
           volume={settings.volume}
@@ -112,6 +112,9 @@ const XPlayerV2 = ({ url, captions = [], trackThumbnails = [], onComplete }) => 
           width="100%"
           height="100%"
           config={{
+            attributes: {
+              crossOrigin: "",
+            },
             file: {
               forceHLS: true,
             },
